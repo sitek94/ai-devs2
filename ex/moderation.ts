@@ -1,6 +1,7 @@
-import {AIDevs} from '@/utils/ai-devs'
 import {OpenAIModerationChain} from 'langchain/chains'
 import OpenAI from 'openai'
+
+import {AIDevs} from '@/utils/ai-devs'
 
 const aidevs = await AIDevs.initialize<{input: string[]}>('moderation')
 

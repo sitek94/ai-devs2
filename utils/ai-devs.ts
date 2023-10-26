@@ -4,9 +4,9 @@ if (!BASE_URL || !AI_DEVS_API_KEY) {
 }
 
 enum StatusCode {
+  IncorrectAnswer = -777,
   Ok = 0,
   WrongApiKey = -3,
-  IncorrectAnswer = -777,
 }
 
 type BaseResponse = {
@@ -29,7 +29,7 @@ export class AIDevs {
 
     return {
       task,
-      sendAnswer: (answer: string | string[] | number[]) =>
+      sendAnswer: (answer: number[] | string | string[]) =>
         aidevs.sendAnswer(token, answer),
     }
   }
@@ -86,7 +86,7 @@ export class AIDevs {
 
   private async sendAnswer(
     token: string,
-    answer: string | string[] | number[],
+    answer: number[] | string | string[],
   ) {
     try {
       const response = await this.fetch({

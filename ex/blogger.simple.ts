@@ -1,6 +1,7 @@
-import {AIDevs} from '@/utils/ai-devs'
 import {OpenAI} from 'langchain/llms/openai'
 import {PromptTemplate} from 'langchain/prompts'
+
+import {AIDevs} from '@/utils/ai-devs'
 
 const aidevs = await AIDevs.initialize<{blog: string[]}>('blogger')
 

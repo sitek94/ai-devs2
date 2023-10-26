@@ -1,4 +1,3 @@
-import {AIDevs} from '@/utils/ai-devs'
 import {LLMChain} from 'langchain/chains'
 import {OpenAI} from 'langchain/llms/openai'
 import {
@@ -7,6 +6,8 @@ import {
 } from 'langchain/output_parsers'
 import {PromptTemplate} from 'langchain/prompts'
 import {z} from 'zod'
+
+import {AIDevs} from '@/utils/ai-devs'
 
 const aidevs = await AIDevs.initialize<{blog: string[]}>('blogger')
 

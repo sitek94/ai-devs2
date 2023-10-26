@@ -2,13 +2,21 @@
   "name": "ai-devs2",
   "module": "index.ts",
   "type": "module",
+  "scripts": {
+    "lint": "eslint --ext .ts . --fix"
+  },
   "dependencies": {
     "langchain": "^0.0.173",
     "openai": "^4.14.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "bun-types": "latest"
+    "@typescript-eslint/eslint-plugin": "latest",
+    "@typescript-eslint/parser": "latest",
+    "bun-types": "latest",
+    "eslint": "^8.52.0",
+    "eslint-plugin-perfectionist": "^2.2.0",
+    "eslint-plugin-unused-imports": "^3.0.0"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"

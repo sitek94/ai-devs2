@@ -23,6 +23,7 @@ const formattedPrompt = await prompt.format({
 
 const llm = new OpenAI({
   modelName: 'gpt-3.5-turbo',
+  maxTokens: 1000,
 })
 
 const json = await llm.call(formattedPrompt)

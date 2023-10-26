@@ -13,6 +13,7 @@ const aidevs = await AIDevs.initialize<{blog: string[]}>('blogger')
 
 const chatModel = new OpenAI({
   modelName: 'gpt-3.5-turbo',
+  maxTokens: 1000,
 })
 
 /**

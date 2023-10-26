@@ -1,6 +1,5 @@
-import {createUtils} from '@/utils/ai-devs'
+import {AIDevs} from '@/utils/ai-devs'
 
-const utils = await createUtils('helloapi')
+const aidevs = await AIDevs.initialize<{cookie: string}>('helloapi')
 
-const task = await utils.getTask<{cookie: string}>()
-await utils.sendAnswer(task.cookie)
+await aidevs.sendAnswer(aidevs.task.cookie)

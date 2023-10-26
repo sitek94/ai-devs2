@@ -1,17 +1,14 @@
-import {createUtils} from '@/utils/ai-devs'
+import {AIDevs} from '@/utils/ai-devs'
 import {OpenAIModerationChain} from 'langchain/chains'
 import OpenAI from 'openai'
 
-const utils = await createUtils('moderation')
-
-const task = await utils.getTask<{input: string[]}>()
+const aidevs = await AIDevs.initialize<{input: string[]}>('moderation')
 
 const moderationChain = new OpenAIModerationChain()
-
 const moderations = (await moderationChain.invoke({
-  input: task.input,
+  input: aidevs.task.input,
 })) as OpenAI.ModerationCreateResponse
 
 const answer = moderations.results.map(result => (result.flagged ? 1 : 0))
 
-await utils.sendAnswer(answer)
+await aidevs.sendAnswer(answer)

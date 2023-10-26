@@ -88,6 +88,9 @@ export class AIDevs {
     token: string,
     answer: number[] | string | string[],
   ) {
+    this.logger.info(`📤 SENDING ANSWER...`)
+    this.logger.info(`📤 ANSWER: \n${JSON.stringify(answer, null, 2)}`)
+
     try {
       const response = await this.fetch({
         method: 'POST',
@@ -106,6 +109,7 @@ export class AIDevs {
   private handleError(e: any, description: string): never {
     this.logger.error(`Failed to ${description}`)
     this.logger.error(e.message)
-    process.exit(1)
+
+    throw e
   }
 }

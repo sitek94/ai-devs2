@@ -19,7 +19,7 @@
       "bun-types" // add Bun global
     ],
     "paths": {
-      "@/utils": ["./utils/index.ts"]
+      "@/utils/*": ["./utils/*"]
     }
   }
 }

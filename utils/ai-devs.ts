@@ -1,5 +1,5 @@
-const {BASE_URL, API_KEY} = Bun.env
-if (!BASE_URL || !API_KEY) {
+const {BASE_URL, AI_DEVS_API_KEY} = Bun.env
+if (!BASE_URL || !AI_DEVS_API_KEY) {
   throw new Error('BASE_URL or API_KEY is not defined')
 }
 
@@ -55,7 +55,7 @@ export async function createUtils(taskName: string) {
         process.exit(1)
       }
     },
-    sendAnswer: async (answer: string) => {
+    sendAnswer: async (answer: string | number[]) => {
       if (!token) {
         throw new Error('You must call getToken() before sendAnswer()')
       }
@@ -78,7 +78,7 @@ async function getToken(taskName: string) {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({apikey: API_KEY}),
+    body: JSON.stringify({apikey: AI_DEVS_API_KEY}),
   })
 
   const data = (await response.json()) as GetTokenResponse
@@ -104,7 +104,7 @@ async function getTask<TTaskData>(token: string) {
   return data as TTaskData & GetTaskResponse
 }
 
-async function sendAnswer(token: string, answer: string) {
+async function sendAnswer(token: string, answer: string | number[]) {
   const response = await fetch(`${BASE_URL}/answer/${token}`, {
     method: 'POST',
     body: JSON.stringify({answer}),

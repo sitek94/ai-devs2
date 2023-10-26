@@ -12,5 +12,5 @@ bun install
 cp .env.example .env
 
 # Run exercises
-bun ex/1.ts
+bun ex/helloapi.ts
 ```

@@ -3,7 +3,8 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "lint": "eslint --ext .ts . --fix"
+    "lint": "eslint --ext .ts . --fix",
+    "new": "plop ex -- --name"
   },
   "dependencies": {
     "langchain": "^0.0.173",
@@ -16,7 +17,8 @@
     "bun-types": "latest",
     "eslint": "^8.52.0",
     "eslint-plugin-perfectionist": "^2.2.0",
-    "eslint-plugin-unused-imports": "^3.0.0"
+    "eslint-plugin-unused-imports": "^3.0.0",
+    "plop": "^4.0.0"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"

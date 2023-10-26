@@ -107,6 +107,9 @@ async function getTask<TTaskData>(token: string) {
 async function sendAnswer(token: string, answer: string | number[]) {
   const response = await fetch(`${BASE_URL}/answer/${token}`, {
     method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
     body: JSON.stringify({answer}),
   })
 

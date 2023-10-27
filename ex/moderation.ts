@@ -3,7 +3,7 @@ import OpenAI from 'openai'
 
 import {AIDevs} from '@/utils/ai-devs'
 
-const aidevs = await AIDevs.initialize<{input: string[]}>('moderation')
+const aidevs = await AIDevs.init<{input: string[]}>('moderation')
 
 const moderationChain = new OpenAIModerationChain()
 const moderations = (await moderationChain.invoke({

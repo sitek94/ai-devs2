@@ -3,7 +3,7 @@ import {PromptTemplate} from 'langchain/prompts'
 
 import {AIDevs} from '@/utils/ai-devs'
 
-const aidevs = await AIDevs.initialize<{blog: string[]}>('blogger')
+const aidevs = await AIDevs.init<{blog: string[]}>('blogger')
 
 const systemTemplate = `
 Generate Polish blog post from the outline below:

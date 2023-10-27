@@ -14,7 +14,9 @@ type BaseResponse = {
   msg: string
 }
 
-export class AIDevs {
+export class AIDevs<TTask> {
+  public task!: TTask
+  private token!: string
   private logger = {
     info: (msg: string) => console.log(`[${this.taskName}] ${msg}`),
     error: (msg: string) => console.error(`[${this.taskName}] ${msg}`),
@@ -22,16 +24,16 @@ export class AIDevs {
 
   constructor(private taskName: string) {}
 
-  static async initialize<TData>(taskName: string) {
-    const aidevs = new AIDevs(taskName)
-    const token = await aidevs.getToken()
-    const task = await aidevs.getTask<TData>(token)
+  public static async init<TTask>(taskName: string) {
+    const aidevs = new AIDevs<TTask>(taskName)
+    await aidevs.prepareTask()
 
-    return {
-      task,
-      sendAnswer: (answer: number[] | string | string[]) =>
-        aidevs.sendAnswer(token, answer),
-    }
+    return aidevs
+  }
+
+  private async prepareTask() {
+    this.token = await this.getToken()
+    this.task = await this.getTask()
   }
 
   private async fetch<TData>({
@@ -69,11 +71,11 @@ export class AIDevs {
     }
   }
 
-  private async getTask<TData>(token: string) {
+  private async getTask() {
     try {
-      const response = await this.fetch<TData>({
+      const response = await this.fetch<TTask>({
         method: 'GET',
-        endpoint: `task/${token}`,
+        endpoint: `task/${this.token}`,
       })
       this.logger.info(`📝 TASK: "${response.msg}"`)
       this.logger.info(`📝 DATA: \n${JSON.stringify(response, null, 2)}`)
@@ -84,17 +86,14 @@ export class AIDevs {
     }
   }
 
-  private async sendAnswer(
-    token: string,
-    answer: number[] | string | string[],
-  ) {
+  public async sendAnswer(answer: number[] | string | string[]) {
     this.logger.info(`📤 SENDING ANSWER...`)
     this.logger.info(`📤 ANSWER: \n${JSON.stringify(answer, null, 2)}`)
 
     try {
       const response = await this.fetch({
         method: 'POST',
-        endpoint: `answer/${token}`,
+        endpoint: `answer/${this.token}`,
         body: JSON.stringify({answer}),
       })
       this.logger.info(`✅ ANSWER ACCEPTED!`)
@@ -103,6 +102,26 @@ export class AIDevs {
       return response
     } catch (e: any) {
       this.handleError(e, 'send answer')
+    }
+  }
+
+  /**
+   * Used in `ex/liar.ts` task
+   */
+  public async getLiarAnswer(question: string) {
+    try {
+      const response = await this.fetch<{answer: string}>({
+        method: 'POST',
+        endpoint: `liar/${this.taskName}`,
+        body: JSON.stringify({question}),
+      })
+      this.logger.info(`📝 QUESTION: "${question}"`)
+      this.logger.info(`📝 LIAR RESPONSE: "${response.answer}"`)
+      console.log(response)
+
+      return response.answer
+    } catch (e: any) {
+      this.handleError(e, 'get liar answer')
     }
   }
 

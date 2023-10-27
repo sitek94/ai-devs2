@@ -9,7 +9,7 @@ import {z} from 'zod'
 
 import {AIDevs} from '@/utils/ai-devs'
 
-const aidevs = await AIDevs.initialize<{blog: string[]}>('blogger')
+const aidevs = await AIDevs.init<{blog: string[]}>('blogger')
 
 const chatModel = new OpenAI({
   modelName: 'gpt-3.5-turbo',

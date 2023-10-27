@@ -6,19 +6,17 @@ import {AIDevs} from '@/utils/ai-devs'
 const aidevs = await AIDevs.initialize<{blog: string[]}>('blogger')
 
 const systemTemplate = `
-Generate paragraph for each of the blog post section titles below:
+Generate Polish blog post from the outline below:
 {outline}
 
-Return ONLY paragraphs, no section titles.
-
-Return JSON array of paragraphs, like so:
-["paragraph about section 1", "paragraph about section 2", ...]
+Return JSON({jsonSchema})
 `
 
 const prompt = PromptTemplate.fromTemplate(systemTemplate)
 
 const formattedPrompt = await prompt.format({
   outline: aidevs.task.blog.map(line => '-' + line + '\n').join(''),
+  jsonSchema: '[{header:string;content:string}]',
 })
 
 const llm = new OpenAI({
@@ -29,7 +27,8 @@ const llm = new OpenAI({
 const json = await llm.call(formattedPrompt)
 
 try {
-  const answer = JSON.parse(json)
+  const response = JSON.parse(json) as {header: string; content: string}[]
+  const answer = response.map(({content}) => content)
 
   await aidevs.sendAnswer(answer)
 } catch (e: any) {

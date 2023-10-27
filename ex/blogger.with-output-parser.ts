@@ -16,18 +16,23 @@ const chatModel = new OpenAI({
   maxTokens: 1000,
 })
 
+const blogSchema = z.array(
+  z.object({
+    header: z.string(),
+    content: z.string(),
+  }),
+)
+
 /**
  * Output parsers usage with LLMs as described:
  * https://js.langchain.com/docs/modules/model_io/output_parsers/how_to/use_with_llm_chain
  */
-const outputParser = StructuredOutputParser.fromZodSchema(z.array(z.string()))
+const outputParser = StructuredOutputParser.fromZodSchema(blogSchema)
 const outputFixingParser = OutputFixingParser.fromLLM(chatModel, outputParser)
 
 const systemTemplate = `
-Generate paragraph for each of the blog post section titles below:
+Generate Polish blog post from the outline below:
 {outline}
-
-Return ONLY paragraphs, no section titles.
 
 {format_instructions}
 `
@@ -47,8 +52,9 @@ const answerFormattingChain = new LLMChain({
   outputParser: outputFixingParser,
 })
 
-const {blog} = await answerFormattingChain.call({
+const output = await answerFormattingChain.call({
   outline: aidevs.task.blog.map(line => '-' + line + '\n').join(''),
 })
+const blog = blogSchema.parse(output.blog)
 
-await aidevs.sendAnswer(blog)
+await aidevs.sendAnswer(blog.map(({content}) => content))

@@ -17,10 +17,7 @@ type BaseResponse = {
 export class AIDevs<TTask> {
   public task!: TTask
   private token!: string
-  private logger = {
-    info: (msg: string) => console.log(`[${this.taskName}] ${msg}`),
-    error: (msg: string) => console.error(`[${this.taskName}] ${msg}`),
-  }
+  private logger = this.createLogger()
 
   constructor(private taskName: string) {}
 
@@ -110,14 +107,19 @@ export class AIDevs<TTask> {
    */
   public async getLiarAnswer(question: string) {
     try {
+      const body = new URLSearchParams({
+        question,
+      })
       const response = await this.fetch<{answer: string}>({
         method: 'POST',
-        endpoint: `liar/${this.taskName}`,
-        body: JSON.stringify({question}),
+        endpoint: `task/${this.token}`,
+        body,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
       })
       this.logger.info(`📝 QUESTION: "${question}"`)
-      this.logger.info(`📝 LIAR RESPONSE: "${response.answer}"`)
-      console.log(response)
+      this.logger.data(`📝 LIAR RESPONSE:`, response)
 
       return response.answer
     } catch (e: any) {
@@ -130,5 +132,20 @@ export class AIDevs<TTask> {
     this.logger.error(e.message)
 
     throw e
+  }
+
+  private createLogger() {
+    const info = (msg: string) => console.log(`[${this.taskName}] ${msg}`)
+    const error = (msg: string) => console.error(`[${this.taskName}] ${msg}`)
+    const data = (msg: string, data: any) => {
+      info(msg)
+      console.log(JSON.stringify(data, null, 2))
+    }
+
+    return {
+      info,
+      error,
+      data,
+    }
   }
 }

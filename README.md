@@ -17,3 +17,12 @@ bun new helloapi
 # Run exercises
 bun ex/helloapi.ts
 ```
+
+## Debugging
+
+Toggle the following variables in `.env` file to enable debug mode.
+
+```bash
+# Langchain debug mode
+LANGCHAIN_VERBOSE=true
+```

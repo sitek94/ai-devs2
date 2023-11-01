@@ -75,7 +75,7 @@ export class AIDevs<TTask> {
         endpoint: `task/${this.token}`,
       })
       this.logger.info(`📝 TASK: "${response.msg}"`)
-      this.logger.info(`📝 DATA: \n${JSON.stringify(response, null, 2)}`)
+      this.logger.data(`📝 RESPONSE:`, response)
 
       return response
     } catch (e: any) {
@@ -85,7 +85,7 @@ export class AIDevs<TTask> {
 
   public async sendAnswer(answer: number[] | string | string[]) {
     this.logger.info(`📤 SENDING ANSWER...`)
-    this.logger.info(`📤 ANSWER: \n${JSON.stringify(answer, null, 2)}`)
+    this.logger.data(`📤 ANSWER:`, answer)
 
     try {
       const response = await this.fetch({
@@ -94,7 +94,7 @@ export class AIDevs<TTask> {
         body: JSON.stringify({answer}),
       })
       this.logger.info(`✅ ANSWER ACCEPTED!`)
-      this.logger.info(`✅ MESSAGE: \n${JSON.stringify(response, null, 2)}`)
+      this.logger.data(`✅ RESPONSE:`, response)
 
       return response
     } catch (e: any) {

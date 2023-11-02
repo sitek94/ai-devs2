@@ -14,15 +14,15 @@ type BaseResponse = {
   msg: string
 }
 
-export class AIDevs<TTask> {
-  public task!: TTask
+export class AIDevs<TTaskData> {
+  public task!: TTaskData
   private token!: string
   private logger = this.createLogger()
 
   constructor(private taskName: string) {}
 
-  public static async init<TTask>(taskName: string) {
-    const aidevs = new AIDevs<TTask>(taskName)
+  public static async init<TTaskSpecificData>(taskName: string) {
+    const aidevs = new AIDevs<TTaskSpecificData & BaseResponse>(taskName)
     await aidevs.prepareTask()
 
     return aidevs
@@ -70,7 +70,7 @@ export class AIDevs<TTask> {
 
   private async getTask() {
     try {
-      const response = await this.fetch<TTask>({
+      const response = await this.fetch<TTaskData>({
         method: 'GET',
         endpoint: `task/${this.token}`,
       })

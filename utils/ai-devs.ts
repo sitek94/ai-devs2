@@ -83,7 +83,7 @@ export class AIDevs<TTaskData> {
     }
   }
 
-  public async sendAnswer(answer: number[] | string | string[]) {
+  public async sendAnswer(answer: number[] | string | string[] | object) {
     this.logger.info(`📤 SENDING ANSWER...`)
     this.logger.data(`📤 ANSWER:`, answer)
 

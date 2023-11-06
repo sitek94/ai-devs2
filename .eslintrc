@@ -10,6 +10,7 @@
     "sourceType": "module"
   },
   "rules": {
+    "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "unused-imports/no-unused-imports": "warn",
     "perfectionist/sort-imports": [

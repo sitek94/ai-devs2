@@ -131,7 +131,7 @@ export class AIDevs<TTaskData> {
     this.logger.error(`Failed to ${description}`)
     this.logger.error(e.message)
 
-    return e as never
+    throw e
   }
 
   private createLogger() {

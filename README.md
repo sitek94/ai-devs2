@@ -20,9 +20,12 @@ bun ex/helloapi.ts
 
 ## Debugging
 
-Toggle the following variables in `.env` file to enable debug mode.
+Activate debug mode and enable detailed logging by setting these variables in your .env file:
 
 ```bash
-# Langchain debug mode
+# Enable verbose output
 LANGCHAIN_VERBOSE=true
+
+# Activate enhanced tracing
+LANGCHAIN_TRACING_V2=true
 ```

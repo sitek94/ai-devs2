@@ -12,6 +12,4 @@ const openai = new OpenAIEmbeddings({
 
 const embedding = await openai.embedQuery(sentence)
 
-console.log(embedding)
-
 await aidevs.sendAnswer(embedding)

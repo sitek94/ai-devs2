@@ -4,9 +4,11 @@ if (!BASE_URL || !AI_DEVS_API_KEY) {
 }
 
 enum StatusCode {
-  IncorrectAnswer = -777,
   Ok = 0,
   WrongApiKey = -3,
+  TooManyRequests = 429,
+  NotAcceptable = 406,
+  IncorrectAnswer = -777,
 }
 
 type BaseResponse = {
@@ -17,7 +19,7 @@ type BaseResponse = {
 export class AIDevs<TTaskData> {
   public task!: TTaskData
   private token!: string
-  private logger = this.createLogger()
+  public logger = this.createLogger()
 
   constructor(private taskName: string) {}
 
@@ -36,7 +38,7 @@ export class AIDevs<TTaskData> {
   private async fetch<TData>({
     endpoint,
     ...options
-  }: {endpoint: string} & RequestInit) {
+  }: {endpoint: string} & RequestInit): Promise<TData & BaseResponse> {
     const response = await fetch(`${BASE_URL}/${endpoint}`, {
       ...options,
       headers: {
@@ -44,13 +46,39 @@ export class AIDevs<TTaskData> {
         ...options.headers,
       },
     })
-    const data = (await response.json()) as BaseResponse
 
-    if (data.code !== StatusCode.Ok) {
-      throw new Error(data.msg)
+    if (response.status === StatusCode.TooManyRequests) {
+      const secondsToWait = 10
+
+      this.logger.info(
+        `🕐 Too many requests. Waiting ${secondsToWait} seconds...`,
+      )
+
+      await new Promise(resolve => setTimeout(resolve, secondsToWait * 1000))
+
+      return this.fetch<TData>({endpoint, ...options})
     }
 
-    return data as TData & BaseResponse
+    if (response.status === StatusCode.WrongApiKey) {
+      throw new Error('Wrong API key')
+    }
+
+    if (response.status === StatusCode.IncorrectAnswer) {
+      throw new Error('Incorrect answer')
+    }
+
+    if (response.status === StatusCode.NotAcceptable) {
+      throw new Error('Not acceptable')
+    }
+
+    if (!response.ok) {
+      const description = await response.text()
+      throw new Error(
+        `Unhandled error! ${response.status} ${response.statusText}: ${description}`,
+      )
+    }
+
+    return (await response.json()) as TData & BaseResponse
   }
 
   private async getToken() {
@@ -68,14 +96,24 @@ export class AIDevs<TTaskData> {
     }
   }
 
-  private async getTask() {
+  /**
+   * Used in `ex/whoami.ts` task
+   */
+  public async getHint() {
+    const task = await this.getTask({useLogger: false})
+    return (task as any).hint
+  }
+
+  private async getTask({useLogger} = {useLogger: true}) {
     try {
       const response = await this.fetch<TTaskData>({
         method: 'GET',
         endpoint: `task/${this.token}`,
       })
-      this.logger.info(`📝 TASK: "${response.msg}"`)
-      this.logger.data(`📝 RESPONSE:`, response)
+
+      if (useLogger) {
+        this.logger.data(`📝 TASK:`, response)
+      }
 
       return response
     } catch (e: any) {
@@ -84,8 +122,7 @@ export class AIDevs<TTaskData> {
   }
 
   public async sendAnswer(answer: number[] | string | string[] | object) {
-    this.logger.info(`📤 SENDING ANSWER...`)
-    this.logger.data(`📤 ANSWER:`, answer)
+    this.logger.data(`📤 SENDING ANSWER:`, answer)
 
     try {
       const response = await this.fetch({
@@ -93,8 +130,7 @@ export class AIDevs<TTaskData> {
         endpoint: `answer/${this.token}`,
         body: JSON.stringify({answer}),
       })
-      this.logger.info(`✅ ANSWER ACCEPTED!`)
-      this.logger.data(`✅ RESPONSE:`, response)
+      this.logger.data(`✅ ANSWER ACCEPTED!`, response)
 
       return response
     } catch (e: any) {
@@ -135,11 +171,12 @@ export class AIDevs<TTaskData> {
   }
 
   private createLogger() {
-    const info = (msg: string) => console.log(`[${this.taskName}] ${msg}`)
-    const error = (msg: string) => console.error(`[${this.taskName}] ${msg}`)
+    const info = (msg: string) => console.log(`${msg}\n`)
+    const error = (msg: string) => console.error(`${msg}\n`)
     const data = (msg: string, data: any) => {
-      info(msg)
+      console.log(`${msg}`)
       console.log(JSON.stringify(data, null, 2))
+      console.log()
     }
 
     return {

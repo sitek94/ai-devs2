@@ -1,5 +1,5 @@
 export default function (plop) {
-  plop.setGenerator('ex', {
+  plop.setGenerator('exercise', {
     description: 'new exercise',
     prompts: [
       {
@@ -11,7 +11,7 @@ export default function (plop) {
     actions: [
       {
         type: 'add',
-        path: 'ex/{{name}}.ts',
+        path: 'exercises/{{name}}.ts',
         templateFile: 'templates/ex.hbs',
       },
     ],

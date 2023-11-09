@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "lint": "eslint --ext .ts . --fix",
-    "new": "plop ex -- --name"
+    "new": "plop exercise -- --name"
   },
   "dependencies": {
     "langchain": "latest",

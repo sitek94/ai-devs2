@@ -15,7 +15,7 @@ cp .env.example .env
 bun new helloapi
 
 # Run exercises
-bun ex/helloapi.ts
+bun exercises/helloapi.ts
 ```
 
 ## Debugging

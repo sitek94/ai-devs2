@@ -13,10 +13,11 @@ cp .env.example .env
 
 # Generate new exercise file
 bun new helloapi
-bun new helloapi --dir # (create directory for exercise)
+bun new people --dir # (create directory for exercise)
 
-# Run exercises
-bun exercises/helloapi.ts
+# Run exercises (works for both single file and directory)
+bun ex helloapi
+bun ex people
 ```
 
 ## Debugging

@@ -5,6 +5,7 @@
   "scripts": {
     "lint": "eslint --ext .ts . --fix",
     "new": "plop exercise -- --name",
+    "ex": "./scripts/run-exercise.sh $1",
     "qdrant:up": "docker compose up qdrant"
   },
   "dependencies": {

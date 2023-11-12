@@ -1,7 +1,7 @@
 import {QdrantClient} from '@qdrant/js-client-rest'
 import {OpenAIEmbeddings} from 'langchain/embeddings/openai'
 
-import {db} from './db'
+import {db} from './init-db'
 
 const COLLECTION_NAME = `ai-devs_search`
 const NUMBER_OF_LINKS_TO_INDEX = 300

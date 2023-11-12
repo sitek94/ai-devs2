@@ -21,3 +21,11 @@ model Person {
   favoriteMovie     String
   favoriteColor     String
 }
+
+model ArchiveLink {
+  id    String @id @default(uuid())
+  title String
+  info  String
+  url   String
+  date  String
+}

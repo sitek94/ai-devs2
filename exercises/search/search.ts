@@ -4,7 +4,7 @@ import {HumanMessage, SystemMessage} from 'langchain/schema'
 
 import {AIDevs} from '@/utils/ai-devs'
 
-import {db} from './db'
+import {db} from './init-db'
 import {vectorDb} from './vector-db'
 
 const aiDevsCollection = await vectorDb.aidevs.getCollection()

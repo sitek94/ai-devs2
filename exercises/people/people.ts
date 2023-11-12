@@ -31,7 +31,7 @@ if (!isIndexed) {
 
 // Generate embedding from the question.
 const questionEmbedding = await createQueryEmbedding(aidevs.task.question)
-aidevs.logger.info('📝 Created question embedding')
+aidevs.logger.info('📐 Created question embedding')
 
 // Search for the most similar person.
 const searchResult = await vectorCollection.search(questionEmbedding)

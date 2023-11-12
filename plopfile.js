@@ -1,19 +1,32 @@
-export default function (plop) {
+export default function (
+  /** @type {import('plop').NodePlopAPI} */
+  plop,
+) {
   plop.setGenerator('exercise', {
     description: 'new exercise',
     prompts: [
       {
-        type: 'input',
         name: 'name',
+        type: 'input',
         message: 'exercise name please',
       },
-    ],
-    actions: [
       {
-        type: 'add',
-        path: 'exercises/{{name}}.ts',
-        templateFile: 'templates/ex.hbs',
+        name: 'dir',
+        type: 'confirm',
+        default: false,
+        message: 'create directory?',
       },
     ],
+    actions: function (data) {
+      return [
+        {
+          type: 'add',
+          path: data.dir
+            ? 'exercises/{{name}}/{{name}}.ts'
+            : 'exercises/{{name}}.ts',
+          templateFile: 'templates/ex.hbs',
+        },
+      ]
+    },
   })
 }

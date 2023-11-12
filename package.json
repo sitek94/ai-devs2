@@ -9,9 +9,11 @@
     "qdrant:up": "docker compose up qdrant"
   },
   "dependencies": {
+    "@prisma/client": "^5.5.2",
     "@qdrant/js-client-rest": "^1.5.0",
     "langchain": "0.0.186",
     "openai": "4.17.4",
+    "prisma": "^5.5.2",
     "zod": "3.22.4"
   },
   "devDependencies": {

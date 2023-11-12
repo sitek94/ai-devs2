@@ -1,17 +1,27 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# Get the filename from the first argument
-filename=$(basename "$1")
+# Script to run exercises files using Bun
 
-# Check if the file exists in the current directory
-if [ -f "./exercises/$filename.ts" ]; then
-  # If it does, run it
-  bun "./exercises/$filename.ts"
+# Exit if no argument is provided
+if [[ $# -eq 0 ]]; then
+  echo "Usage: $0 <filename>"
+  exit 1
+fi
+
+exercise_name=$1
+single_file_exercise_path="./exercises/${exercise_name}.ts"
+subdirectory_path="./exercises/${exercise_name}"
+subdirectory_exercise_path="./exercises/${exercise_name}/${exercise_name}.ts"
+
+# Check single file path
+if [[ -f "${single_file_exercise_path}" ]]; then
+  bun "${single_file_exercise_path}"
+
+# Check subdirectory
+elif [[ -d "${subdirectory_path}" ]]; then
+  bun "${subdirectory_exercise_path}"
+
+# File not found
 else
-  # If it doesn't, try to find it in a subdirectory
-  if [ -d "./exercises/${filename%.ts}" ]; then
-    bun "./exercises/${filename}/${filename}.ts"
-  else
-    echo "Error: File not found"
-  fi
+  echo "Error: File '${exercise_name}.ts' not found"
 fi

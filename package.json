@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "lint": "eslint --ext .ts . --fix",
-    "new": "plop exercise -- --name"
+    "new": "plop exercise -- --name",
+    "qdrant:run": "docker run -p 6333:6333 -v $(pwd)/qdrant_storage:/qdrant/storage qdrant/qdrant"
   },
   "dependencies": {
     "@qdrant/js-client-rest": "^1.5.0",

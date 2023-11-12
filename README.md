@@ -29,3 +29,14 @@ LANGCHAIN_VERBOSE=true
 # Activate enhanced tracing
 LANGCHAIN_TRACING_V2=true
 ```
+
+## Vector databases
+
+I'm using [Qdrant](https://qdrant.tech/documentation/quick-start/) for exercises with Vector Databases. You can run it
+locally using Docker:
+
+```bash
+# Pull docker image and run it
+docker pull qdrant/qdrant
+docker run -p 6333:6333 -v $(pwd)/qdrant_storage:/qdrant/storage qdrant/qdrant
+```

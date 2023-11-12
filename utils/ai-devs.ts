@@ -1,5 +1,5 @@
-const {BASE_URL, AI_DEVS_API_KEY} = Bun.env
-if (!BASE_URL || !AI_DEVS_API_KEY) {
+const {AI_DEVS_BASE_URL, AI_DEVS_API_KEY} = Bun.env
+if (!AI_DEVS_BASE_URL || !AI_DEVS_API_KEY) {
   throw new Error('BASE_URL or AI_DEVS_API_KEY is not defined')
 }
 
@@ -39,7 +39,7 @@ export class AIDevs<TTaskData> {
     endpoint,
     ...options
   }: {endpoint: string} & RequestInit): Promise<TData & BaseResponse> {
-    const response = await fetch(`${BASE_URL}/${endpoint}`, {
+    const response = await fetch(`${AI_DEVS_BASE_URL}/${endpoint}`, {
       ...options,
       headers: {
         'Content-Type': 'application/json',

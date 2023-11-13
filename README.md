@@ -42,3 +42,7 @@ locally using Docker:
 docker pull qdrant/qdrant
 docker run -p 6333:6333 -v $(pwd)/qdrant_storage:/qdrant/storage qdrant/qdrant
 ```
+
+## Resources
+
+- [Prompts examples when working with dates](https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/guides/prompts-applications.md)

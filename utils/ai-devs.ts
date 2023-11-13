@@ -112,7 +112,10 @@ export class AIDevs<TTaskData> {
       })
 
       if (useLogger) {
-        this.logger.data(`📝 TASK:`, response)
+        this.logger.data(`📝 TASK PAYLOAD:`, response)
+        if ('question' in response) {
+          this.logger.info(`📝 QUESTION: ${response.question}`)
+        }
       }
 
       return response
@@ -121,7 +124,9 @@ export class AIDevs<TTaskData> {
     }
   }
 
-  public async sendAnswer(answer: number[] | string | string[] | object) {
+  public async sendAnswer(
+    answer: number | number[] | string | string[] | object,
+  ) {
     this.logger.data(`📤 SENDING ANSWER:`, answer)
 
     try {

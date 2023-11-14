@@ -15,7 +15,7 @@ export function getSingleToolCall<T>(message: BaseMessageChunk) {
   const toolCalls = message.additional_kwargs.tool_calls
   if (!toolCalls) {
     return {
-      name: '',
+      name: '' as const,
     }
   }
 

@@ -2,6 +2,27 @@
 
 My repo for the second edition of [AI Devs](https://www.aidevs.pl/).
 
+## Exercises
+
+| Chapter/Lesson | Name                                            | Topics                                                            |
+| -------------- | ----------------------------------------------- | ----------------------------------------------------------------- |
+| C01L01         | [helloapi](./exercises/helloapi.ts)             | Intro to AI Devs API                                              |
+| C01L04         | [moderation](./exercises/moderation.ts)         | OpenAI Moderation API                                             |
+| C01L04         | [blogger](./exercises/blogger.ts)               | Langchain + output parsers; ensuring correct format of response   |
+| C01L05         | [liar](./exercises/liar.ts)                     | Guard mechanism for LLM response                                  |
+| C02L02         | [inprompt](./exercises/inprompt.ts)             | LLM response based on dynamic context                             |
+| C02L03         | [embedding](./exercises/embedding.ts)           | OpenAI Embedding API                                              |
+| C02L04         | [whisper](./exercises/whisper.ts)               | OpenAI Whisper API                                                |
+| C02L05         | [functions](./exercises/functions.ts)           | OpenAI Functions Calling                                          |
+| C03L01         | [rodo](./exercises/rodo.ts)                     | Placeholders in prompts to improve privacy                        |
+| C03L02         | [scraper](./exercises/scraper.ts)               | Scrape article and use it as dynamic context + guard mechanism    |
+| C03L03         | [whoami](./exercises/whoami.ts)                 | Build dynamic context during consecutive API calls                |
+| C03L04         | [search](./exercises//search/search.ts)         | Vector DB + similarity search                                     |
+| C03L05         | [people](./exercises/people.ts)                 | Vector DB + similarity search + Traditional DB == dynamic context |
+| C04L01         | [knowledge](./exercises/knowledge/knowledge.ts) | Choosing tool to call based on input                              |
+| C04L02         | [tools](./exercises/tools.ts)                   | Intent detection                                                  |
+| C04L03         | [gnome](./exercises/gnome.ts)                   | OpenAI Vision API - image recognition                             |
+
 ## Getting started
 
 ```bash

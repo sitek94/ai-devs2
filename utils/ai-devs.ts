@@ -11,20 +11,21 @@ enum StatusCode {
   IncorrectAnswer = -777,
 }
 
-type BaseResponse = {
+type AIDevsApiResponse = {
   code: StatusCode
   msg: string
+  [key: string]: any
 }
 
 export class AIDevs<TTaskData> {
-  public task!: TTaskData
+  public task!: TTaskData & AIDevsApiResponse
   private token!: string
   public logger = this.createLogger()
 
   constructor(private taskName: string) {}
 
   public static async init<TTaskSpecificData>(taskName: string) {
-    const aidevs = new AIDevs<TTaskSpecificData & BaseResponse>(taskName)
+    const aidevs = new AIDevs<TTaskSpecificData & AIDevsApiResponse>(taskName)
     await aidevs.prepareTask()
 
     return aidevs
@@ -38,7 +39,7 @@ export class AIDevs<TTaskData> {
   private async fetch<TData>({
     endpoint,
     ...options
-  }: {endpoint: string} & RequestInit): Promise<TData & BaseResponse> {
+  }: {endpoint: string} & RequestInit): Promise<TData & AIDevsApiResponse> {
     const response = await fetch(`${AI_DEVS_BASE_URL}/${endpoint}`, {
       ...options,
       headers: {
@@ -78,7 +79,7 @@ export class AIDevs<TTaskData> {
       )
     }
 
-    return (await response.json()) as TData & BaseResponse
+    return (await response.json()) as TData & AIDevsApiResponse
   }
 
   private async getToken() {
@@ -113,6 +114,8 @@ export class AIDevs<TTaskData> {
 
       if (useLogger) {
         this.logger.data(`📝 TASK PAYLOAD:`, response)
+        this.logger.info(`📝 DESCRIPTION: ${response.msg}`)
+
         if ('question' in response) {
           this.logger.info(`📝 QUESTION: ${response.question}`)
         }

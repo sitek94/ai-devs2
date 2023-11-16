@@ -22,6 +22,7 @@ My repo for the second edition of [AI Devs](https://www.aidevs.pl/).
 | C04L01         | [knowledge](./exercises/knowledge/knowledge.ts) | Choosing tool to call based on input                              |
 | C04L02         | [tools](./exercises/tools.ts)                   | Intent detection                                                  |
 | C04L03         | [gnome](./exercises/gnome.ts)                   | OpenAI Vision API - image recognition                             |
+| C04L04         | [ownapi](./exercises/ownapi/ownapi.ts)          | Dedicated backend for your AI assistant; experiments with ngrok   |
 
 ## Getting started
 

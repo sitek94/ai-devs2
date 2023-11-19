@@ -1,6 +1,10 @@
 # AI Devs 2
 
-My repo for the second edition of [AI Devs](https://www.aidevs.pl/).
+M y repo for the second edition of [AI Devs](https://www.aidevs.pl/).
+
+## Progress
+
+![progress](./docs/progress.excalidraw.png)
 
 ## Exercises
 
@@ -23,6 +27,12 @@ My repo for the second edition of [AI Devs](https://www.aidevs.pl/).
 | C04L02         | [tools](./exercises/tools.ts)                   | Intent detection                                                  |
 | C04L03         | [gnome](./exercises/gnome.ts)                   | OpenAI Vision API - image recognition                             |
 | C04L04         | [ownapi](./exercises/ownapi/ownapi.ts)          | Dedicated backend for your AI assistant; experiments with ngrok   |
+| C04L05         | [ownapiapi](./exercises/ownapi/ownapi.ts)       | Extended ownapi with keeping conversation context                 |
+| C05L01         | [TODO](./exercises/TODO/TODO.ts)                | TODO                                                              |
+| C05L02         | [TODO](./exercises/TODO/TODO.ts)                | TODO                                                              |
+| C05L03         | [TODO](./exercises/TODO/TODO.ts)                | TODO                                                              |
+| C05L04         | [TODO](./exercises/TODO/TODO.ts)                | TODO                                                              |
+| C05L05         | [TODO](./exercises/TODO/TODO.ts)                | TODO                                                              |
 
 ## Getting started
 

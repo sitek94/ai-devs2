@@ -3,6 +3,10 @@ import {BaseMessageChunk} from 'langchain/schema'
 
 const embeddings = new OpenAIEmbeddings({maxConcurrency: 5})
 
+export enum Model {
+  GPT_3_5_TURBO_LATEST = 'gpt-3.5-turbo-1106',
+}
+
 export async function createDocumentEmbedding(input: string) {
   return (await embeddings.embedDocuments([input]))[0]
 }

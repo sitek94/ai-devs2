@@ -8,7 +8,7 @@
     "ex": "./scripts/run-exercise.sh $1",
     "qdrant:up": "docker compose up qdrant",
     "ngrok": "pkill ngrok || true; ngrok http 3000 --domain=$NGROK_DOMAIN --authtoken=$NGROK_AUTH_TOKEN",
-    "t": "echo $NGROK_DOMAIN"
+    "ownapipro:server": "bun --watch ./exercises/ownapipro/server.ts"
   },
   "dependencies": {
     "@doist/todoist-api-typescript": "^3.0.1",

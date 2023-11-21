@@ -4,6 +4,7 @@ import {BaseMessageChunk} from 'langchain/schema'
 const embeddings = new OpenAIEmbeddings({maxConcurrency: 5})
 
 export enum Model {
+  GPT_4_TURBO_LATEST = 'gpt-4-1106-preview',
   GPT_3_5_TURBO_LATEST = 'gpt-3.5-turbo-1106',
 }
 

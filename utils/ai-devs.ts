@@ -60,23 +60,14 @@ export class AIDevs<TTaskData> {
       return this.fetch<TData>({endpoint, ...options})
     }
 
-    if (response.status === StatusCode.WrongApiKey) {
-      throw new Error('Wrong API key')
-    }
-
-    if (response.status === StatusCode.IncorrectAnswer) {
-      throw new Error('Incorrect answer')
-    }
-
-    if (response.status === StatusCode.NotAcceptable) {
-      throw new Error('Not acceptable')
-    }
-
     if (!response.ok) {
       const description = await response.text()
-      throw new Error(
-        `Unhandled error! ${response.status} ${response.statusText}: ${description}`,
+
+      this.logger.error(
+        `${response.status} ${response.statusText}: ${description}`,
       )
+
+      process.exit(1)
     }
 
     return (await response.json()) as TData & AIDevsApiResponse
@@ -130,13 +121,17 @@ export class AIDevs<TTaskData> {
   public async sendAnswer(
     answer: number | number[] | string | string[] | object,
   ) {
+    return this.sendRawAnswer(JSON.stringify({answer}))
+  }
+
+  public async sendRawAnswer(answer: string) {
     this.logger.data(`📤 SENDING ANSWER:`, answer)
 
     try {
       const response = await this.fetch({
         method: 'POST',
         endpoint: `answer/${this.token}`,
-        body: JSON.stringify({answer}),
+        body: answer,
       })
       this.logger.data(`✅ ANSWER ACCEPTED!`, response)
 

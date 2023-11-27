@@ -1,10 +1,12 @@
 # AI Devs 2
 
-M y repo for the second edition of [AI Devs](https://www.aidevs.pl/).
+My repo for the second edition of [AI Devs](https://www.aidevs.pl/).
 
 ## Progress
 
-![progress](./docs/progress.excalidraw.png)
+| API Exercises                          | Prompt Exercises                       | Quizzes                                | Certificate                                    |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- | ---------------------------------------------- |
+| ![100%](https://geps.dev/progress/100) | ![100%](https://geps.dev/progress/100) | ![100%](https://geps.dev/progress/100) | [Certificate](./docs/ai-devs2-certificate.pdf) |
 
 ## Exercises
 
@@ -31,8 +33,7 @@ M y repo for the second edition of [AI Devs](https://www.aidevs.pl/).
 | C05L01         | [meme](./exercises/meme.ts)                     | Generating a meme using RenderForm API                             |
 | C05L02         | [optimaldb](./exercises/optimaldb/optimaldb.ts) | Summarizing facts about people to optimize DB                      |
 | C05L03         | [google](./exercises/google/google.ts)          | Searching Google using SerpAPI to provide GPT with dynamic context |
-| C05L04         | [TODO](./exercises/TODO/TODO.ts)                | TODO                                                               |
-| C05L05         | [TODO](./exercises/TODO/TODO.ts)                | TODO                                                               |
+| C05L04         | [md2html](./exercises/md2html/md2html.ts)       | Fine-tuning of GPT-3.5 Turbo for converting Markdown to HTML       |
 
 ## Getting started
 
@@ -48,8 +49,9 @@ bun new helloapi
 bun new people --dir # (create directory for exercise)
 
 # Run exercises (works for both single file and directory)
-bun ex helloapi
-bun ex people
+bun ex helloapi      # Runs ./exercises/helloapi.ts
+bun ex google        # Runs ./exercises/google/google.ts
+bun ex google/server # Runs ./exercises/google/server.ts
 ```
 
 ## Debugging

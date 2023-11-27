@@ -25,10 +25,6 @@ Bun.serve({
 
     const {question} = (await request.json()) as {question: string}
 
-    console.log('Question', question)
-    console.log('Conversation ID', conversationId)
-    console.log('Conversations', conversations)
-
     // 🚨
     // This is a very primitive implementation of a conversation just for the sake of the exercise.
     // In real app, it'd be better to:

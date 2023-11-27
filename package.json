@@ -6,6 +6,7 @@
     "lint": "eslint --ext .ts . --fix",
     "new": "plop exercise -- --name",
     "ex": "./scripts/run-exercise.sh $1",
+    "curl": "./scripts/curl.sh $@",
     "qdrant:up": "docker compose up qdrant",
     "ngrok": "pkill ngrok || true; ngrok http 3000 --domain=$NGROK_DOMAIN --authtoken=$NGROK_AUTH_TOKEN",
     "ownapipro:server": "bun --watch ./exercises/ownapipro/server.ts"

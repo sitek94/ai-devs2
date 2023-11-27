@@ -4,24 +4,33 @@
 
 # Exit if no argument is provided
 if [[ $# -eq 0 ]]; then
-  echo "Usage: $0 <filename>"
+  echo "Usage:"
+  echo  "bun ex <filename>             - Runs ./exercises/<filename>.ts"
+  echo  "bun ex <directory>/<filename> - Runs ./exercises/<directory>/<filename>.ts"
+  echo  "bun ex <exercise>             - Runs ./exercises/<exercise>/<exercise>.ts"
   exit 1
 fi
 
 exercise_name=$1
-single_file_exercise_path="./exercises/${exercise_name}.ts"
-subdirectory_path="./exercises/${exercise_name}"
-subdirectory_exercise_path="./exercises/${exercise_name}/${exercise_name}.ts"
+shift
 
-# Check single file path
-if [[ -f "${single_file_exercise_path}" ]]; then
-  bun "${single_file_exercise_path}"
-
-# Check subdirectory
-elif [[ -d "${subdirectory_path}" ]]; then
-  bun "${subdirectory_exercise_path}"
-
-# File not found
+# Check if argument contains a slash
+if [[ "${exercise_name}" == */* ]]; then
+  # Treat as a path
+  exercise_path="./exercises/${exercise_name}.ts"
 else
-  echo "Error: File '${exercise_name}.ts' not found"
+  # Check if file exists directly under exercises
+  if [[ -f "./exercises/${exercise_name}.ts" ]]; then
+    exercise_path="./exercises/${exercise_name}.ts"
+  else
+    # Treat as an exercise name
+    exercise_path="./exercises/${exercise_name}/${exercise_name}.ts"
+  fi
+fi
+
+# Check if file exists
+if [[ -f "${exercise_path}" ]]; then
+  bun $@ "${exercise_path}"
+else
+  echo "Error: File '${exercise_path}' not found"
 fi

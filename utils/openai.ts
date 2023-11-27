@@ -6,6 +6,7 @@ const embeddings = new OpenAIEmbeddings({maxConcurrency: 5})
 export enum Model {
   GPT_4_TURBO_LATEST = 'gpt-4-1106-preview',
   GPT_3_5_TURBO_LATEST = 'gpt-3.5-turbo-1106',
+  GPT_3_5_TURBO_1106_MARKDOWN_TO_HTML = 'ft:gpt-3.5-turbo-1106:personal::8PfIBCCY',
 }
 
 export async function createDocumentEmbedding(input: string) {

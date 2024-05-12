@@ -28,8 +28,8 @@ My repo for the second edition of [AI Devs](https://www.aidevs.pl/).
 | C04L01         | [knowledge](./exercises/knowledge/knowledge.ts) | Choosing tool to call based on input                               |
 | C04L02         | [tools](./exercises/tools.ts)                   | Intent detection                                                   |
 | C04L03         | [gnome](./exercises/gnome.ts)                   | OpenAI Vision API - image recognition                              |
-| C04L04         | [ownapi](./exercises/ownapi/ownapi.ts)          | Dedicated backend for your AI assistant; experiments with ngrok    |
-| C04L05         | [ownapiapi](./exercises/ownapi/ownapi.ts)       | Extended ownapi with keeping conversation context                  |
+| C04L04         | [ownapi](./exercises/ownapi.ts)          | Dedicated backend for your AI assistant; experiments with ngrok    |
+| C04L05         | [ownapiapi](./exercises/ownapipro/ownapipro.ts)       | Extended ownapi with keeping conversation context                  |
 | C05L01         | [meme](./exercises/meme.ts)                     | Generating a meme using RenderForm API                             |
 | C05L02         | [optimaldb](./exercises/optimaldb/optimaldb.ts) | Summarizing facts about people to optimize DB                      |
 | C05L03         | [google](./exercises/google/google.ts)          | Searching Google using SerpAPI to provide GPT with dynamic context |
